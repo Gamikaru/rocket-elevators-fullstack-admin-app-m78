@@ -9,7 +9,7 @@
     padding: clamp(1rem, 5vw, 3rem);
     text-align: center;
     background-color: #f8fafc;
-    color: #1f2937;
+    color: #425268;
     font-family: 'Inter', system-ui, sans-serif;
     overflow-y: auto;
     min-height: 100vh;
@@ -31,22 +31,12 @@
     transform: scale(1.05) rotate(2deg);
 }
 
-.logo.react:hover {
-    filter: drop-shadow(0 0 2em #61dafbee);
-}
-
 @keyframes logo-spin {
     from {
         transform: rotate(0deg);
     }
     to {
         transform: rotate(360deg);
-    }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-    a:nth-of-type(2) .logo {
-        animation: logo-spin infinite 20s cubic-bezier(0.4, 0, 0.2, 1);
     }
 }
 
@@ -180,4 +170,59 @@ button:disabled {
     background-repeat: no-repeat;
     background-size: 1em;
     padding-right: 2.5rem;
+}
+
+/* Specific Button Variants */
+.button-blue {
+    color: #3b82f6;
+    background-color: #e0f2fe;
+    border-radius: 0.75rem;
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button-blue:hover {
+    background-color: #c3e7ff;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.button-green {
+    color: #10b981;
+    background-color: #e6f7f1;
+    border-radius: 0.75rem;
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button-green:hover {
+    background-color: #ccf0e4;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.button-red {
+    color: #ef4444;
+    background-color: #fee2e2;
+    border-radius: 0.75rem;
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button-red:hover {
+    background-color: #fca5a5;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Responsive Transitions */
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+.shadow-md:hover {
+    box-shadow: 0 8px 10px -4px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes scale-up {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.animate-scale-up {
+    animation: scale-up 0.3s ease-out forwards;
 }

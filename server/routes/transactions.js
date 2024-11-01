@@ -11,21 +11,29 @@ const router = express.Router();
 // Define a GET route to fetch the last 10 transactions sorted by date with agent details populated
 router.get('/transaction-data', async (req, res) => {
     try {
-        console.log("Fetching the last 10 transactions and all agents...");
-        // Find the last 10 transactions, sort them by date in descending order, and populate agent details
+        console.log("Fetching transactions and all agents...");
+
+        // Get total count for pagination
+        const totalCount = await Transaction.countDocuments();
+
+        // Find transactions with no limit, just sort by date
         const transactions = await Transaction.find()
-            .populate('agent_id', 'first_name last_name') // Populate only first_name and last_name of agent
-            .sort({ date: -1 }) // Sort transactions by date in descending order
-            .limit(10); // Limit to the last 10 transactions
-        const agents = await Agent.find(); // Fetch all agents
+            .populate('agent_id', 'first_name last_name')
+            .sort({ date: -1 });
+
+        const agents = await Agent.find();
 
         console.log(`Fetched ${transactions.length} transactions and ${agents.length} agents.`);
-        // Log structured data to be sent in response
-        console.log("API Response:", { status: "ok", data: { transactions, agents }, message: null });
-        // Send response with transaction and agent data
-        res.json({ status: "ok", data: { transactions, agents }, message: null });
+        res.json({
+            status: "ok",
+            data: {
+                transactions,
+                agents,
+                totalCount
+            },
+            message: null
+        });
     } catch (error) {
-        // Log the error and send an error response
         console.error("Failed to fetch data:", error);
         res.status(500).json({ status: "error", message: "Failed to fetch data" });
     }

@@ -96,7 +96,7 @@ const Register = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="min-h-screen flex items-start justify-center bg-gray-50">
             <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
                 <div className="flex justify-center mb-6">
                     <NavLink to="/">
@@ -114,7 +114,7 @@ const Register = () => {
                         {successMessage}
                     </div>
                 )}
-                <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); handleRegister(); }}>
+                <form className="space-y-6 px-5" onSubmit={(e) => { e.preventDefault(); handleRegister(); }}>
                     <div>
                         {/* <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
                             First Name
@@ -177,8 +177,7 @@ const Register = () => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full py-2 px-4 bg-blue-400 text-white rounded-md hover:bg-blue-700 transition"
-                    >
+                        className="w-full py-2 px-20 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-all duration-200"                    >
                         Register
                     </button>
                     <p className="text-sm text-gray-500 text-center mt-4">

@@ -59,24 +59,21 @@ const Login = () => {
 
     // The component renders a form with inputs for email and password.
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50">
-            <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
+        <div className="min-h-screen flex items-start justify-center bg-gray-50 mt-10">
+            <div className="group bg-white p-8 rounded-xl shadow-lg w-full max-w-md transition-transform duration-300 transform hover:scale-105 hover:shadow-xl">
                 <div className="flex justify-center mb-6">
                     <NavLink to="/">
                         <img alt="Company Logo" className="h-12 w-auto" src="R2.png" />
                     </NavLink>
                 </div>
-                <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Login</h2>
+                <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Login</h2>
                 {errorMessage && (
                     <div className="bg-red-500 text-white text-center p-3 rounded mb-4">
                         {errorMessage}
                     </div>
                 )}
-                <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
+                <form className="space-y-6 px-5" onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
                     <div>
-                        {/* <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                            Email
-                        </label> */}
                         <input
                             type="email"
                             name="email"
@@ -89,9 +86,6 @@ const Login = () => {
                         />
                     </div>
                     <div>
-                        {/* <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                            Password
-                        </label> */}
                         <input
                             type="password"
                             name="password"
@@ -105,13 +99,13 @@ const Login = () => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full py-2 px-4 bg-blue-400 text-white rounded-md hover:bg-blue-700 transition"
+                        className="w-full py-2 px-20 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-all duration-200"
                     >
                         Login
                     </button>
                     <p className="text-sm text-gray-500 text-center mt-4">
                         Don&apos;t have an account?{' '}
-                        <NavLink to="/register" className="text-blue-400 hover:underline">
+                        <NavLink to="/register" className="text-blue-500 hover:underline">
                             Register here
                         </NavLink>
                     </p>
@@ -119,6 +113,7 @@ const Login = () => {
             </div>
         </div>
     );
+
 }
 
 export default Login;

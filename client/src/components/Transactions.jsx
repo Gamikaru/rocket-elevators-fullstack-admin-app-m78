@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { FaFileAlt, FaScroll, FaSearch, FaTimes } from 'react-icons/fa';
+import { FaFileAlt, FaInfoCircle, FaScroll, FaSearch, FaTimes } from 'react-icons/fa';
 import ConfirmationModal from './ConfirmationModal';
 import EditTransactionModal from './EditTransactionModal';
 import TransactionForm from './TransactionForm';
 import TransactionTable from './TransactionTable';
+
 
 const Transactions = () => {
     const [transactions, setTransactions] = useState([]);
@@ -54,6 +55,7 @@ const Transactions = () => {
 
     const showToast = (message, type) => {
         setToast({ message, type, visible: true });
+        setTimeout(() => hideToast(), 3000);
     };
 
     const hideToast = () => {
@@ -124,58 +126,60 @@ const Transactions = () => {
     const totalPages = Math.ceil(transactions.length / transactionsPerPage);
 
     return (
-        <div className="p-8">
-            <h1 className="text-3xl font-bold text-gray-800 mb-8">Transactions</h1>
+        <div className="max-w-6xl mx-auto pt-2 px-6">
+            {/* Title Section */}
+            <div className="flex items-center justify-between mb-4">
+                <div className="text-left">
+                    <h2 className="text-3xl font-semibold flex items-center mb-1">
+                        Transactions
+                        <FaInfoCircle
+                            className="ml-2 text-gray-400 cursor-pointer hover:text-blue-600 transition duration-200"
+                            title="View information about transactions"
+                        />
+                    </h2>
+                    <p className="text-gray-500">Manage and view all agent transactions efficiently</p>
+                </div>
+            </div>
 
             {/* Two-column layout */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Table column */}
                 <div className="lg:col-span-2">
-                    {/* Controls row */}
-                    <div className="flex justify-start items-center mb-4 mr-2 px-8">
-                        <div className="relative flex items-center">
-                            <div className={`
-    flex items-center absolute left-20 px-5
-    transition-all duration-300 ease-in-out origin-left
-    ${isSearchVisible ? 'w-96 opacity-100 scale-100' : 'w-0 opacity-0 scale-95'}
-`}>
+                    <div className="flex items-center justify-start mb-4 px-4 lg:px-0">
+                        <div className="flex items-center space-x-2">
+                            {/* Toggle View Icon */}
+                            <div
+                                onClick={toggleView}
+                                className="p-3 rounded-full cursor-pointer text-gray-400 hover:text-gray-600 hover:bg-gray-100 active:bg-gray-200 transition-all duration-150 ease-in-out"
+                            >
+                                {isScrollable ? <FaFileAlt className="w-5 h-5" /> : <FaScroll className="w-5 h-5" />}
+                            </div>
+
+                            {/* Toggle Search Icon */}
+                            <div
+                                onClick={() => setIsSearchVisible(!isSearchVisible)}
+                                className="p-3 rounded-full cursor-pointer text-gray-400 hover:text-gray-600 hover:bg-gray-100 active:bg-gray-200 transition-all duration-150 ease-in-out"
+                            >
+                                <FaSearch className="w-5 h-5" />
+                            </div>
+
+                            {/* Search Input with Smooth Animation */}
+                            <div
+                                className={`relative overflow-hidden transition-all duration-300 ease-in-out ${isSearchVisible ? 'w-64 opacity-100 scale-100' : 'w-0 opacity-0 scale-95'}`}
+                            >
                                 <input
                                     type="text"
                                     placeholder="Search by agent name..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
-                                    className={`
-            pl-3 pr-8 py-0.5
-            border border-gray-300 rounded-lg
-            focus:outline-none focus:ring-2 focus:ring-blue-400
-            transition-all duration-300
-            w-full
-        `}
+                                    className="pl-4 pr-8 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 w-full transition duration-200"
                                 />
                                 {searchTerm && (
                                     <FaTimes
-                                        className="absolute center text-gray-400 cursor-pointer hover:text-gray-600"
+                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer hover:text-gray-600"
                                         onClick={() => setSearchTerm('')}
                                     />
                                 )}
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <div
-                                    onClick={toggleView}
-                                    className="p-3 rounded-full cursor-pointer text-gray-400 hover:text-gray-600 hover:bg-gray-100 active:bg-gray-200 transition-all duration-150 ease-in-out"
-                                >
-                                    {isScrollable ? (
-                                        <FaFileAlt className="w-5 h-5" />
-                                    ) : (
-                                        <FaScroll className="w-5 h-5" />
-                                    )}
-                                </div>
-                                <div
-                                    onClick={() => setIsSearchVisible(!isSearchVisible)}
-                                    className="p-1 rounded-full cursor-pointer text-gray-400 hover:text-gray-600 hover:bg-gray-100 active:bg-gray-200 transition-all duration-150 ease-in-out"
-                                >
-                                    <FaSearch className="w-5 h-5" />
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -194,9 +198,8 @@ const Transactions = () => {
                 </div>
 
                 {/* Form column */}
-                <div className="lg:col-span-1">
-                    <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-                        <h2 className="text-lg font-semibold text-gray-800 mb-4">New Transaction</h2>
+                <div className="lg:col-span-1 mt-10">
+                    <div className="bg-white rounded-lg shadow-lg border border-gray-200 p-6 max-w-sm mx-auto mt-10">
                         <TransactionForm
                             agents={agents}
                             onSubmit={handleCreateTransaction}
@@ -220,8 +223,15 @@ const Transactions = () => {
                 onClose={() => setIsEditModalOpen(false)}
                 onSave={handleSaveTransaction}
             />
+
+            {toast.visible && (
+                <div className={`fixed bottom-4 right-4 bg-${toast.type === 'success' ? 'green' : 'red'}-500 text-white px-4 py-2 rounded-lg shadow-md`}>
+                    {toast.message}
+                </div>
+            )}
         </div>
     );
-};
+
+}
 
 export default Transactions;

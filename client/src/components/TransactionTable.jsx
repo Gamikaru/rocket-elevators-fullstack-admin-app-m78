@@ -61,77 +61,52 @@ const TransactionTable = ({
     }, [transactions, searchTerm, sortConfig]);
 
     return (
-        <div className="overflow-x-auto mt-4 mx-6">
-            <div className={`relative ${isScrollable ? 'h-[calc(100vh-280px)] overflow-y-auto' : ''}`}>
-                {isLoading && (
-                    <div className="absolute inset-0 flex justify-center items-center bg-white bg-opacity-75 z-50">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400"></div>
-                    </div>
-                )}
-                <table className="min-w-full bg-white rounded-lg shadow-sm border border-gray-100">
-                    <thead className="bg-gray-50 sticky top-0 z-10">
-                        <tr className="text-gray-500 text-xs tracking-wider">
-                            <th
-                                className="w-1/4 py-3 px-3 text-center group cursor-pointer transition-colors hover:bg-gray-100"
-                                onClick={() => handleSort('agentName')}
-                            >
-                                <span className="flex items-center justify-center gap-2">
+        <div className="overflow-x-auto mt-2 mx-4">
+            {isLoading && (
+                <div className="absolute inset-0 flex justify-center items-center bg-white bg-opacity-75 z-50">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+                </div>
+            )}
+
+            <div className={`relative ${isScrollable ? 'h-[calc(100vh-240px)] overflow-y-auto' : ''}`}>
+                <table className="min-w-full bg-white rounded-xl shadow-lg border border-gray-200 transition-shadow duration-300 hover:shadow-xl">
+                    <thead className="bg-gray-50/90 sticky top-0 z-20 border-b border-gray-200">
+                        <tr className="text-gray-700 text-sm font-bold tracking-wider uppercase">
+                            <th className="w-1/4 py-5 px-6 text-center group cursor-pointer transition-all duration-200 hover:bg-gray-100/80 text-base"
+                                onClick={() => handleSort('agentName')}>
+                                <span className="flex items-center justify-center gap-2 group-hover:scale-105 transition-transform">
                                     Agent
-                                    <span className="text-gray-300 group-hover:text-gray-400">
-                                        {getSortIcon('agentName')}
-                                    </span>
+                                    <span className="text-gray-400 group-hover:text-blue-500">{getSortIcon('agentName')}</span>
                                 </span>
                             </th>
-                            <th
-                                className="w-1/4 py-3 px-3 text-center group cursor-pointer transition-colors hover:bg-gray-100"
-                                onClick={() => handleSort('amount')}
-                            >
-                                <span className="flex items-center justify-center gap-2">
+                            <th className="w-1/4 py-5 px-6 text-center group cursor-pointer transition-all duration-200 hover:bg-gray-100/80 text-base"
+                                onClick={() => handleSort('amount')}>
+                                <span className="flex items-center justify-center gap-2 group-hover:scale-105 transition-transform">
                                     Amount
-                                    <span className="text-gray-300 group-hover:text-gray-400">
-                                        {getSortIcon('amount')}
-                                    </span>
+                                    <span className="text-gray-400 group-hover:text-blue-500">{getSortIcon('amount')}</span>
                                 </span>
                             </th>
-                            <th
-                                className="w-1/4 py-3 px-3 text-center group cursor-pointer transition-colors hover:bg-gray-100"
-                                onClick={() => handleSort('date')}
-                            >
-                                <span className="flex items-center justify-center gap-2">
+                            <th className="w-1/4 py-5 px-6 text-center group cursor-pointer transition-all duration-200 hover:bg-gray-100/80 text-base"
+                                onClick={() => handleSort('date')}>
+                                <span className="flex items-center justify-center gap-2 group-hover:scale-105 transition-transform">
                                     Date
-                                    <span className="text-gray-300 group-hover:text-gray-400">
-                                        {getSortIcon('date')}
-                                    </span>
+                                    <span className="text-gray-400 group-hover:text-blue-500">{getSortIcon('date')}</span>
                                 </span>
                             </th>
-                            <th className="w-1/4 py-3 px-3 text-center">Actions</th>
+                            <th className="w-1/4 py-5 px-6 text-center text-base">Actions</th>
                         </tr>
                     </thead>
-                    <tbody className="text-gray-600 text-sm divide-y divide-gray-100">
+
+                    <tbody className="text-gray-600 text-sm divide-y divide-gray-100/70">
                         {filteredAndSortedData.map(transaction => (
-                            <tr
-                                key={transaction._id}
-                                className="hover:bg-gray-50 transition-colors"
-                            >
-                                <td className="py-3 px-3 align-middle text-center whitespace-nowrap">
-                                    {transaction.agentName}
-                                </td>
-                                <td className={`py-3 px-3 align-middle text-center whitespace-nowrap ${transaction.amount < 1000
-                                    ? 'text-red-600 bg-red-50/30'
-                                    : transaction.amount < 2000
-                                        ? 'text-yellow-600 bg-yellow-50/30'
-                                        : 'text-green-600 bg-green-50/30'
-                                    }`}>
+                            <tr key={transaction._id} className="transition-colors duration-150 hover:bg-gray-50/80 backdrop-blur-sm">
+                                <td className="py-4 px-6 align-middle text-center font-medium">{transaction.agentName}</td>
+                                <td className={`py-4 px-6 align-middle text-center font-medium ${transaction.amount < 1000 ? 'text-red-600 bg-red-50/40' : transaction.amount < 2000 ? 'text-yellow-600 bg-yellow-50/40' : 'text-green-600 bg-green-50/40'}`}>
                                     ${transaction.amount.toLocaleString()}
                                 </td>
-                                <td className="py-3 px-3 align-middle text-center whitespace-nowrap">
-                                    {transaction.date}
-                                </td>
-                                <td className="py-3 px-3 align-middle text-center whitespace-nowrap">
-                                    <button
-                                        onClick={() => onEdit(transaction)}
-                                        className="text-gray-500 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 px-3 py-1 rounded-md transition-colors text-sm font-medium"
-                                    >
+                                <td className="py-4 px-6 align-middle text-center">{transaction.date}</td>
+                                <td className="py-4 px-6 align-middle text-center">
+                                    <button onClick={() => onEdit(transaction)} className="px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50/50 hover:bg-blue-100 rounded-lg transition-all duration-200 hover:shadow-md hover:scale-105 active:scale-95">
                                         Edit
                                     </button>
                                 </td>
@@ -143,32 +118,21 @@ const TransactionTable = ({
 
             {!isScrollable && (
                 <div className="flex justify-between items-center mt-4 px-6">
-                    <div
-                        onClick={onPrevPage}
-                        className={`
-                            text-gray-400 p-2 rounded-full hover:bg-gray-100 transition-colors cursor-pointer
-                            ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:text-gray-600'}
-                        `}
-                    >
-                        <FaArrowLeft size={14} />
+                    <div onClick={onPrevPage} className={`text-gray-400 p-1 rounded-full hover:bg-gray-100 transition-colors cursor-pointer ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:text-gray-600'}`}>
+                        <FaArrowLeft size={16} />
                     </div>
-                    <span className="text-gray-500 text-sm font-medium">
-                        Page {currentPage} of {totalPages}
-                    </span>
-                    <div
-                        onClick={onNextPage}
-                        className={`
-                            text-gray-400 p-2 rounded-full hover:bg-gray-100 transition-colors cursor-pointer
-                            ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'hover:text-gray-600'}
-                        `}
-                    >
-                        <FaArrowRight size={14} />
+                    <span className="text-gray-500 text-sm font-semibold">Page {currentPage} of {totalPages}</span>
+                    <div onClick={onNextPage} className={`text-gray-400 p-2 rounded-full hover:bg-gray-100 transition-colors cursor-pointer ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'hover:text-gray-600'}`}>
+                        <FaArrowRight size={16} />
                     </div>
                 </div>
             )}
         </div>
     );
-}
+
+
+};
+
 
 TransactionTable.propTypes = {
     transactions: PropTypes.arrayOf(PropTypes.shape({

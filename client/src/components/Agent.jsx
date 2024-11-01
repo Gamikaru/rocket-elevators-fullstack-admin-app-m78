@@ -142,15 +142,20 @@ export default function Agent() {
     };
 
     return (
-        <div className="max-w-4xl mx-auto p-6 bg-gray-50 min-h-screen">
-            <h3 className="text-3xl font-bold text-gray-800 mb-6">{isNew ? 'Create Agent' : 'Update Agent'}</h3>
+        <div className="max-w-4xl mx-auto py-6 px-6 bg-gray-50 min-h-screen">
+            {/* Title Section */}
+            <div className="text-left mb-8">
+                <h2 className="text-3xl font-semibold mb-1 text-gray-800">
+                    {isNew ? 'Create Agent' : 'Update Agent'}
+                </h2>
+                <p className="text-gray-500">Fill in the details below to {isNew ? 'create a new' : 'update this'} agent</p>
+            </div>
 
             {/* Notification */}
             {notification.message && (
                 <div
-                    className={`mb-6 px-4 py-3 rounded-lg text-white ${
-                        notification.type === "success" ? "bg-green-500" : "bg-red-500"
-                    }`}
+                    className={`mb-6 px-4 py-3 rounded-lg text-white ${notification.type === "success" ? "bg-green-500" : "bg-red-500"
+                        }`}
                     role="alert"
                 >
                     {notification.type === "error" && notification.message.includes("\n") ? (
@@ -174,18 +179,17 @@ export default function Agent() {
             />
 
             {/* Form */}
-            <form onSubmit={onSubmit} className="bg-white p-8 rounded-xl shadow-md">
+            <form onSubmit={onSubmit} className="bg-white p-8 rounded-xl shadow-lg border border-gray-200 transition-shadow duration-300 hover:shadow-xl">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* First Name */}
                     <div>
-                        <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">
-                            First Name
-                        </label>
                         <input
                             type="text"
                             name="first_name"
                             id="first_name"
-                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-400 focus:border-blue-400"
+                            className="mt-1 block w-full px-4 py-3 border border-gray-200 rounded-lg text-gray-700 bg-white text-sm
+                                       focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400
+                                       transition-all duration-200 hover:border-gray-300 shadow-sm"
                             placeholder="First name"
                             value={form.first_name}
                             onChange={(e) => updateForm({ first_name: e.target.value })}
@@ -194,14 +198,13 @@ export default function Agent() {
 
                     {/* Last Name */}
                     <div>
-                        <label htmlFor="last_name" className="block text-sm font-medium text-gray-700">
-                            Last Name
-                        </label>
                         <input
                             type="text"
                             name="last_name"
                             id="last_name"
-                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-400 focus:border-blue-400"
+                            className="mt-1 block w-full px-4 py-3 border border-gray-200 rounded-lg text-gray-700 bg-white text-sm
+                                       focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400
+                                       transition-all duration-200 hover:border-gray-300 shadow-sm"
                             placeholder="Last name"
                             value={form.last_name}
                             onChange={(e) => updateForm({ last_name: e.target.value })}
@@ -210,16 +213,15 @@ export default function Agent() {
 
                     {/* Rating */}
                     <div>
-                        <label htmlFor="rating" className="block text-sm font-medium text-gray-700">
-                            Rating
-                        </label>
                         <input
                             type="number"
                             max="100"
                             min="0"
                             name="rating"
                             id="rating"
-                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-400 focus:border-blue-400"
+                            className="mt-1 block w-full px-4 py-3 border border-gray-200 rounded-lg text-gray-700 bg-white text-sm
+                                       focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400
+                                       transition-all duration-200 hover:border-gray-300 shadow-sm"
                             placeholder="Rating out of 100"
                             value={form.rating}
                             onChange={(e) => updateForm({ rating: e.target.value })}
@@ -228,16 +230,15 @@ export default function Agent() {
 
                     {/* Fee */}
                     <div>
-                        <label htmlFor="fee" className="block text-sm font-medium text-gray-700">
-                            Fee
-                        </label>
                         <input
                             type="number"
                             step="100"
                             min="0"
                             name="fee"
                             id="fee"
-                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-400 focus:border-blue-400"
+                            className="mt-1 block w-full px-4 py-3 border border-gray-200 rounded-lg text-gray-700 bg-white text-sm
+                                       focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400
+                                       transition-all duration-200 hover:border-gray-300 shadow-sm"
                             placeholder="Fee (USD)"
                             value={form.fee}
                             onChange={(e) => updateForm({ fee: e.target.value })}
@@ -246,7 +247,6 @@ export default function Agent() {
 
                     {/* Region */}
                     <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-gray-700">Region</label>
                         <div className="mt-2 flex items-center space-x-6">
                             {['North', 'South', 'East', 'West'].map((region) => (
                                 <div key={region} className="flex items-center">
@@ -269,17 +269,17 @@ export default function Agent() {
                 </div>
 
                 {/* Buttons */}
-                <div className="mt-8 flex space-x-4">
+                <div className="mt-8 flex space-x-4 justify-center">
                     <button
                         type="submit"
-                        className="px-6 py-3 bg-blue-400 text-white font-medium rounded-lg hover:bg-blue-700 transition"
+                        className="px-5 py-2 text-sm font-medium text-blue-600 bg-blue-50/50 hover:bg-blue-100 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md hover:scale-105 active:scale-95"
                     >
                         Save Agent
                     </button>
                     <button
                         type="button"
                         onClick={() => navigate("/agents")}
-                        className="px-6 py-3 bg-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-400 transition"
+                        className="px-5 py-2 text-sm font-medium text-gray-600 bg-gray-100/50 hover:bg-gray-200 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md hover:scale-105 active:scale-95"
                     >
                         Agent List
                     </button>
@@ -287,4 +287,5 @@ export default function Agent() {
             </form>
         </div>
     );
+
 }
