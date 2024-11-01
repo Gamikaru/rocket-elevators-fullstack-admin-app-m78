@@ -16,6 +16,9 @@ A modern, responsive web application built with React and Node.js that provides 
 ![Registration Page](screenshots/re-reg.png)
 *Registration page with real-time validation*
 
+![Registration Page](screenshots/re-adminhome.png)
+*Admin home page with quick links*
+
 ### 👥 Agent Management
 - View all agents in a sortable, filterable table
 - Add new agents
@@ -25,10 +28,13 @@ A modern, responsive web application built with React and Node.js that provides 
 - Filter agents by region
 - Toggle between paginated and scrollable views
 
+
 ![Agent List](screenshots/re-agentlist.png)
+![Agent List](screenshots/re-agentlist-filtered-example-region.png)
 *Agent list with sorting, filtering, and search capabilities*
 
 ![Agent Creation Form](screenshots/re-agent-create-form.png)
+![Agent Edit Form](screenshots/re-update-edit-agent.png)
 *Agent creation/editing form*
 
 ### 💰 Transaction Management
@@ -64,7 +70,8 @@ A modern, responsive web application built with React and Node.js that provides 
 
 
 ![Expanded Chart View](screenshots/reports-lightbox-expanded.png)
-*Expanded chart view in lightbox*
+![Expanded Chart View](screenshots/trans-summary.png)
+*Expanded chart view   and summary statistics in lightboxes*
 
 ## Technology Stack
 
